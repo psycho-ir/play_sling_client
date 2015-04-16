@@ -9,6 +9,7 @@
         <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery-1.11.2.js")"></script>
         <script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
         <script type="text/javascript" src="@routes.Assets.at("javascripts/idea.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/like.js")"></script>
 
         <script type="text/javascript">
         var userToken ="";
@@ -148,22 +149,31 @@
                     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#idea-modal">Be the first</button>
                 </div>
                 <div id="idea-template" style="display : none ;">
-                    <div id="idea-$ideaId" class="col-md-3 col-md-offset-1" style="background-color:$color; margin-bottom: 5px;">
-                            <h4><span class="glyphicon glyphicon-flash"></span> $name</h4>
-                            $description
+                    <div id="idea-$ideaId" class="well col-md-3 col-md-offset-1 $css" style="margin-bottom:5px;">
+                        <h4><span class="glyphicon glyphicon-flash"></span> $name</h4>
+                        $description
+                        <br />
+                        Current state: $state
+                        <div class="wrapper" style="padding:5px;">
+                            <span class="glyphicon glyphicon-heart"></span>
+                            <span id="likeCount">
+                                    $likeCount
+                            </span>
                             <br />
-                            $state
-                            <div class="wrapper" style="padding:5px ;">
-                                <span class="glyphicon glyphicon-heart"></span>
-                                $likeCount
-                                <button class="btn btn-success btn-sm">I like it</button>
-                                <button data-ideaId="$ideaId" class="idea-comment btn btn-success btn-sm">Show comments</button>
-                                <button class="btn btn-success btn-sm">Comment</button>
+                            <button data-ideaId="$ideaId" class="like btn btn-success btn-sm">I like it</button>
+                            <button data-ideaId="$ideaId" class="idea-comment btn btn-success btn-sm">Show comments</button>
+
+                        </div>
+                        <div class="comments" style="display : none ;">
+                            <span class="cm-close glyphicon glyphicon-remove pull-right"></span>
+                            <div class="comments-items"></div>
+                            <div class="comment-area">
+                                <textarea>
+                                </textarea>
+                                <button data-ideaid="$ideaid" class="btn btn-success btn-sm">Comment</button>
                             </div>
-                            <div class="comments" style="display :none;">
-                                <span class="cm-close glyphicon glyphicon-remove pull-right"></span>
-                                <div class="comments-items"></div>
-                            </div>
+
+                        </div>
 
                     </div>
                 </div>
@@ -180,7 +190,6 @@
             </div>
 
         </div>
-
 
     </body>
 </html>

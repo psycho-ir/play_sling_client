@@ -55,3 +55,7 @@ body {
 .cm-close {
     cursor: pointer;
 }
+
+.open-state {
+        background-image:  linear-gradient(to bottom, #e8e8e8 0%, #55ff55 100%)
+}

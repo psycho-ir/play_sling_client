@@ -1,4 +1,4 @@
-var colors = {'open': '#17FFC4', 'close': '#990011'};
+var colors = {'open': 'open-state', 'close': '#990011'};
 function showIdeas(token) {
 
     $.ajax({
@@ -22,10 +22,13 @@ function showIdeas(token) {
                     $('#ideas .row').append(template.replace('$name', ideas[i].name)
                         .replace('$description', ideas[i].description)
                         .replace('$state', ideas[i].state)
-                        .replace('$color', colors[ideas[i].state])
+                        .replace('$css', colors[ideas[i].state])
                         .replace('$likeCount', ideas[i].likeCount)
                         .replace('$ideaId', ideas[i].id)
-                        .replace('$ideaId', ideas[i].id));
+                        .replace('$ideaId', ideas[i].id)
+                        .replace('$ideaId', ideas[i].id)
+                        .replace('$ideaId', ideas[i].id)
+                    );
                 }
 
             },
