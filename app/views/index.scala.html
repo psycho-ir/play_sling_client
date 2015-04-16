@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <link href="@routes.Assets.at("stylesheets/bootstrap.min.css")" rel="stylesheet">
+        <link href="@routes.Assets.at("stylesheets/bootstrap-theme.css")" rel="stylesheet">
+        <link href="@routes.Assets.at("stylesheets/site.css")" rel="stylesheet">
+
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery-1.11.2.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
+
+        <script type="text/javascript">
+        var userToken ="";
+
+        function showMessage(msg){
+                $('#message-container').text(msg);
+                $('#error-container').text("");
+        }
+           function showError(msg){
+             $('#error-container').text(msg);
+                             $('#message-container').text("");
+
+            };
+        $(document).ready(function () {
+            jQuery.ajaxSetup({ jsonp: null, jsonpCallback: null});
+
+
+            $("#signin").click(function () {
+                $.ajax({
+                    method:"POST",
+                    url: "http://localhost:9000/api/auth/signin/credentials",
+                    data: JSON.stringify({
+                    "identifier":$('#username').val(),
+                    "password":$('#password').val()
+                    }),
+                    success: function(e,t){
+                        userToken= e.token;
+                        $('#sign-container').fadeOut();
+                        $('#challenge-container').fadeIn();
+
+
+                    },
+                    error: function(e) {
+                        showError(JSON.parse (e.responseText).error);
+                    },
+                    type:"application/json",
+                    contentType: "application/json"
+                });
+            });
+
+            $('#signup').click(function(){
+                $.ajax({
+                    method:"POST",
+                    url:"http://localhost:9000/api/auth/signup",
+                    data: JSON.stringify(
+                    {"fullName":"",
+                        "firstName":"",
+                        "lastName":"",
+                        "password":$('#password').val(),
+                        "identifier":$('#username').val()
+                        }),
+                        success: function(e,t){
+                        console.log(e);
+                        console.log(t);
+                        },
+                        error: function(e) {
+                        showError(JSON.parse (e.responseText).error);
+                        console.log(e);
+                    },
+                    type:"application/json",
+                    contentType: "application/json"
+                }
+                );
+            });
+
+
+        });
+    </script>
+        <title></title>
+    </head>
+    <body>
+
+        <div class="container">
+
+            <form id="sign-container" class="form-signin">
+                <div id="message-container" class="alert-success">
+                </div>
+                <div id="error-container" class="alert-danger">
+                </div>
+                <h2 class="form-signin-heading">Please sign in</h2>
+                <label for="username" class="sr-only">Email address</label>
+                <input type="text" id="username" name="username" class="form-control" placeholder="User name" required
+                autofocus>
+                <label for="password" class="sr-only">Password</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="remember-me"> Remember me
+                    </label>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <button id="signin" class="btn btn-lg btn-primary btn-block" type="button">Sign in</button>
+                    </div>
+                    <div class="col-xs-6">
+                        <button id="signup" class="btn btn-lg btn-primary btn-block" type="button">Sign Up</button>
+                    </div>
+                </div>
+            </form>
+
+            <div id="challenge-container" style="display:none;">
+                    Challenges are here
+            </div>
+
+        </div>
+
+    </body>
+</html>
