@@ -46,9 +46,9 @@ body {
 }
 
 .comments {
-    border: 2px solid #bbdb00;
-    margin: 5px;
-    padding: 5px;
+    border: 1px solid #eedb55;
+    margin: 1px;
+    padding: 1px;
 
 }
 
@@ -57,5 +57,10 @@ body {
 }
 
 .open-state {
-        background-image:  linear-gradient(to bottom, #e8e8e8 0%, #55ff55 100%)
+        background-image:  linear-gradient(to bottom, #fCf4fF 0%, #6CD4FF 100%)
+}
+
+hr {
+    margin-top: 2px;
+    margin-bottom: 2px;
 }

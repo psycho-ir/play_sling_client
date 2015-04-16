@@ -39,35 +39,7 @@ function showIdeas(token) {
     );
 }
 
-function showComments(token, ideaId) {
-    $.ajax({
-            method: "GET",
-            url: "http://localhost:9000/api/ideas/" + ideaId + "/comments",
-            headers: {
-                "X-Auth-Token": token
-            },
-            success: function (e, t) {
-                var comments = e;
-                var cmContainer = $('#idea-' + ideaId + ' .comments');
-                cmContainer.fadeIn();
-                var itemsContainer = cmContainer.find('.comments-items');
-                itemsContainer.empty();
-                if (comments.length == 0) {
-                    itemsContainer.append('<div>No comments exist</div>');
-                    return;
-                }
-                for (var i in comments) {
-                    itemsContainer.append('<div>' + comments[i].comment + '</div>')
-                }
 
-
-            },
-            error: function (e) {
-                console.log(e);
-            }
-        }
-    );
-}
 
 $(document).ready(function () {
     $('#idea-save').click(function () {
