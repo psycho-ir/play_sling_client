@@ -5,12 +5,14 @@
         <link href="@routes.Assets.at("stylesheets/bootstrap.min.css")" rel="stylesheet">
         <link href="@routes.Assets.at("stylesheets/bootstrap-theme.css")" rel="stylesheet">
         <link href="@routes.Assets.at("stylesheets/site.css")" rel="stylesheet">
+        <link href="@routes.Assets.at("stylesheets/uploadfile.css")" rel="stylesheet">
 
         <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery-1.11.2.js")"></script>
         <script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
         <script type="text/javascript" src="@routes.Assets.at("javascripts/idea.js")"></script>
         <script type="text/javascript" src="@routes.Assets.at("javascripts/like.js")"></script>
         <script type="text/javascript" src="@routes.Assets.at("javascripts/comment.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery.uploadfile.js")"></script>
 
         <script type="text/javascript">
         var userToken ="";
@@ -31,6 +33,10 @@
             }
         $(document).ready(function () {
             jQuery.ajaxSetup({ jsonp: null, jsonpCallback: null});
+
+            $('#testUp').uploadFile({
+                url:"http://localhost:9000/api/soisjs"
+            })
 
 
             $("#signin").click(function () {
@@ -89,6 +95,8 @@
         <title></title>
     </head>
     <body>
+        <div id="testUp"></div>
+
         <div id="comment-template" style="display:none;">
             <div class="well-sm">
                 <span class="glyphicon glyphicon-pencil"></span>
@@ -158,7 +166,7 @@
                     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#idea-modal">Be the first</button>
                 </div>
                 <div id="idea-template" style="display : none ;">
-                    <div id="idea-$ideaId" class="well col-md-4 col-md-offset-1 $css" style="margin-bottom:5px;">
+                    <div id="idea-$ideaId" class="well col-md-5 $css" style="margin-bottom:5px;margin-left:4%;margin-right: 4%;">
                         <h4><span class="glyphicon glyphicon-flash"></span> $name</h4>
                         $description
                         <br />
