@@ -1,6 +1,5 @@
 var colors = {'open': 'open-state', 'close': '#990011'};
 function showIdeas(token) {
-
     $.ajax({
             method: "GET",
             url: "http://localhost:9000/api/ideas",
@@ -14,20 +13,21 @@ function showIdeas(token) {
                     return;
                 }
                 var template = $('#idea-template').html();
+                $('#empty').hide();
                 $('#ideas').fadeIn();
                 $('#ideas .row').empty();
                 for (var i in ideas) {
 
-                    +ideas[i].name +
                     $('#ideas .row').append(template.replace('$name', ideas[i].name)
-                        .replace('$description', ideas[i].description)
-                        .replace('$state', ideas[i].state)
-                        .replace('$css', colors[ideas[i].state])
-                        .replace('$likeCount', ideas[i].likeCount)
-                        .replace('$ideaId', ideas[i].id)
-                        .replace('$ideaId', ideas[i].id)
-                        .replace('$ideaId', ideas[i].id)
-                        .replace('$ideaId', ideas[i].id)
+                            .replace('$description', ideas[i].description)
+                            .replace('$state', ideas[i].state)
+                            .replace('$css', colors[ideas[i].state])
+                            .replace('$likeCount', ideas[i].likeCount)
+                            .replace('$ideaId', ideas[i].id)
+                            .replace('$ideaId', ideas[i].id)
+                            .replace('$ideaId', ideas[i].id)
+                            .replace('$ideaId', ideas[i].id)
+                            .replace('$ideaId', ideas[i].id)
                     );
                 }
 
@@ -40,9 +40,8 @@ function showIdeas(token) {
 }
 
 
-
 $(document).ready(function () {
-    $('#idea-save').click(function () {
+    $(document).on('click', '#idea-save', function () {
         $.ajax({
             method: "POST",
             url: "http://localhost:9000/api/ideas",
@@ -68,7 +67,6 @@ $(document).ready(function () {
             contentType: "application/json"
 
         });
-
     });
 
     $(document).on("click", ".idea-comment", function () {
@@ -77,7 +75,6 @@ $(document).ready(function () {
     });
 
     $(document).on("click", ".cm-close", function () {
-        console.log("d")
         $(this).parent().fadeOut();
     });
 })

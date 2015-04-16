@@ -13,6 +13,7 @@
         <script type="text/javascript" src="@routes.Assets.at("javascripts/like.js")"></script>
         <script type="text/javascript" src="@routes.Assets.at("javascripts/comment.js")"></script>
         <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery.uploadfile.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/upload.js")"></script>
 
         <script type="text/javascript">
         var userToken ="";
@@ -34,9 +35,10 @@
         $(document).ready(function () {
             jQuery.ajaxSetup({ jsonp: null, jsonpCallback: null});
 
-            $('#testUp').uploadFile({
-                url:"http://localhost:9000/api/soisjs"
-            })
+//            $('#testUp').uploadFile({
+//                url:"http://localhost:9000/api/soisjs",
+//                formData : {"name":"soroosh"}
+//            })
 
 
             $("#signin").click(function () {
@@ -49,6 +51,7 @@
                     }),
                     success: function(e,t){
                         userToken= e.token;
+                        userId = $('#username').val();
                         $('#sign-container').fadeOut();
                         clearMsgs();
                         $('#idea-container').fadeIn();
@@ -76,8 +79,8 @@
                         "identifier":$('#username').val()
                         }),
                         success: function(e,t){
-                        console.log(e);
-                        console.log(t);
+
+                        showMessage("You have signed up successfully");
                         },
                         error: function(e) {
                         showError(JSON.parse (e.responseText).error);
@@ -95,119 +98,145 @@
         <title></title>
     </head>
     <body>
-        <div id="testUp"></div>
-
-        <div id="comment-template" style="display:none;">
-            <div class="well-sm">
-                <span class="glyphicon glyphicon-pencil"></span>
-                 $comment
-                <hr />
-                At: $date
-            </div>
+        @*<div id="testUp"></div>*@
+    <div id="comment-template" style="display : none ;">
+        <div class="well-sm">
+            <span class="glyphicon glyphicon-pencil"></span>
+            $comment
+            <hr />
+            At: $date
         </div>
+    </div>
 
-        <div class="container">
-            <div id="message-container" class="alert-success">
+    <div id="attachment-modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Attach a file</h4>
                 </div>
-            <div id="error-container" class="alert-danger">
-                </div>
-            <form id="sign-container" class="form-signin">
-
-                <h2 class="form-signin-heading">Please sign in</h2>
-                <label for="username" class="sr-only">Email address</label>
-                <input type="text" id="username" name="username" class="form-control" placeholder="User name" required
-                autofocus>
-                <label for="password" class="sr-only">Password</label>
-                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="remember-me"> Remember me
-                    </label>
-                </div>
-                <div class="row">
-                    <div class="col-xs-6">
-                        <button id="signin" class="btn btn-lg btn-primary btn-block" type="button">Sign in</button>
+                <div class="modal-body">
+                        <label for="name" class="sr-only">Title</label>
+                        <input type="text" id="name" name="name" class="form-control" placeholder="Name" required autofocus>
+                        <label for="description" class="sr-only">Description</label>
+                        <textarea id="description" name="description" class="form-control" placeholder="Description" required></textarea>
+                    <div>
+                        <span id="generate-uploader" class="glyphicon glyphicon-cloud-upload"></span>
                     </div>
-                    <div class="col-xs-6">
-                        <button id="signup" class="btn btn-lg btn-primary btn-block" type="button">Sign Up</button>
+                    <div>
+                        <div id="attach"></div>
                     </div>
+
                 </div>
-            </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" id="idea-save" class="btn btn-primary">Save</button>
+                </div>
+            </div> <!-- /.modal-content -->
+        </div> <!-- /.modal-dialog -->
+    </div> <!-- /.modal -->
 
-            <div id="idea-container" style="display : none ;">
-                <div id="idea-modal" class="modal fade">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title">Bring your IDEA to our challenge</h4>
-                            </div>
-                            <div class="modal-body">
+    <div class="container">
+        <div id="message-container" class="alert-success">
+                </div>
+        <div id="error-container" class="alert-danger">
+                </div>
+        <form id="sign-container" class="form-signin">
 
-                                <form id="idea-form">
-                                    <label for="title" class="sr-only">Title</label>
-                                    <input type="text" id="title" name="name" class="form-control" placeholder="Title" required autofocus>
-                                    <label for="description" class="sr-only">Description</label>
-                                    <textarea id="description" name="description" class="form-control" placeholder="Description" required></textarea>
-                                </form>
+            <h2 class="form-signin-heading">Please sign in</h2>
+            <label for="username" class="sr-only">Email address</label>
+            <input type="text" id="username" name="username" class="form-control" placeholder="User name" required
+            autofocus>
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
 
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="button" id="idea-save" class="btn btn-primary">Save</button>
-                            </div>
-                        </div> <!-- /.modal-content -->
-                    </div> <!-- /.modal-dialog -->
-                </div> <!-- /.modal -->
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="remember-me"> Remember me
+                </label>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <button id="signin" class="btn btn-lg btn-primary btn-block" type="button">Sign in</button>
+                </div>
+                <div class="col-xs-6">
+                    <button id="signup" class="btn btn-lg btn-primary btn-block" type="button">Sign Up</button>
+                </div>
+            </div>
+        </form>
 
-                <div id="empty" class="well" style="display : none ;">
+        <div id="idea-container" style="display : none ;">
+            <div id="idea-modal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Bring your IDEA to our challenge</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="idea-form">
+                                <label for="title" class="sr-only">Title</label>
+                                <input type="text" id="title" name="name" class="form-control" placeholder="Title" required autofocus>
+                                <label for="description" class="sr-only">Description</label>
+                                <textarea id="description" name="description" class="form-control" placeholder="Description" required></textarea>
+                            </form>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" id="idea-save" class="btn btn-primary">Save</button>
+                        </div>
+                    </div> <!-- /.modal-content -->
+                </div> <!-- /.modal-dialog -->
+            </div> <!-- /.modal -->
+
+            <div id="empty" class="well" style="display : none ;">
                       There is no availble IDEA!
-                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#idea-modal">Be the first</button>
-                </div>
-                <div id="idea-template" style="display : none ;">
-                    <div id="idea-$ideaId" class="well col-md-5 $css" style="margin-bottom:5px;margin-left:4%;margin-right: 4%;">
-                        <h4><span class="glyphicon glyphicon-flash"></span> $name</h4>
-                        $description
-                        <br />
-                        Current state: $state
-                        <div class="wrapper" style="padding:5px;">
-                            <span class="glyphicon glyphicon-heart"></span>
-                            <span id="likeCount">
-                                    $likeCount
-                            </span>
-                            <br />
-                            <button data-ideaId="$ideaId" class="like btn btn-success btn-sm">I like it</button>
-                            <button data-ideaId="$ideaId" class="idea-comment btn btn-success btn-sm">Show comments</button>
-
-                        </div>
-                        <div class="comments" style="display : none ;">
-                            <span class="cm-close glyphicon glyphicon-remove pull-right"></span>
-                            <div class="comments-items"></div>
-                            <div class="comment-area">
-                                <textarea style="width:100%" class="form-control" id="commentText"></textarea>
-                                <br />
-                                <button data-ideaid="$ideaId" class="comment btn btn-success btn-sm">Comment</button>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#idea-modal">Be the first</button>
             </div>
-            <div id="ideas" style="display : none ;">
-                <h3 class="well">
-                        Current IDEAS
-                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#idea-modal">Share your IDEA</button>
-                </h3>
+            <div id="idea-template" style="display : none ;">
+                <div id="idea-$ideaId" class="well col-md-5 $css" style="margin-bottom : 5 px ; margin-left : 4 % ; margin-right : 4 % ;">
+                    <h4><span class="glyphicon glyphicon-flash"></span> $name</h4>
+                    $description
+                    <br />
+                    Current state: $state
+                    <div class="wrapper" style="padding : 5 px ;">
+                        <span class="glyphicon glyphicon-heart"></span>
+                        <span id="likeCount">
+                                    $likeCount
+                        </span>
+                        <br />
+                        <button data-ideaId="$ideaId" class="like btn btn-success btn-sm">I like it</button>
+                        <button data-ideaId="$ideaId" class="idea-comment btn btn-success btn-sm">Show comments</button>
+                        <button data-ideaId="$ideaId" class="idea-attach btn btn-success btn-sm" data-toggle="modal" data-target="#attachment-modal">Attach file</button>
 
-                <div class="row">
                     </div>
+                    <div class="comments" style="display : none ;">
+                        <span class="cm-close glyphicon glyphicon-remove pull-right"></span>
+                        <div class="comments-items"></div>
+                        <div class="comment-area">
+                            <textarea style="width : 100 %" class="form-control" id="commentText"></textarea>
+                            <br />
+                            <button data-ideaid="$ideaId" class="comment btn btn-success btn-sm">Comment</button>
+                        </div>
+
+                    </div>
+
+                </div>
             </div>
 
         </div>
+        <div id="ideas" style="display : none ;">
+            <h3 class="well">
+                        Current IDEAS
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#idea-modal">Share your IDEA</button>
+            </h3>
 
+            <div class="row">
+                    </div>
+        </div>
+
+    </div>
 
     </body>
 </html>
