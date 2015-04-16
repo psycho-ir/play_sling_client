@@ -130,7 +130,6 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" id="idea-save" class="btn btn-primary">Save</button>
                 </div>
             </div> <!-- /.modal-content -->
         </div> <!-- /.modal-dialog -->
@@ -195,12 +194,12 @@
                 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#idea-modal">Be the first</button>
             </div>
             <div id="idea-template" style="display : none ;">
-                <div id="idea-$ideaId" class="well col-md-5 $css" style="margin-bottom : 5 px ; margin-left : 4 % ; margin-right : 4 % ;">
+                <div id="idea-$ideaId" class="well col-md-5 $css" style="margin-bottom:5px ; margin-left:4% ; margin-right:4%;">
                     <h4><span class="glyphicon glyphicon-flash"></span> $name</h4>
                     $description
                     <br />
                     Current state: $state
-                    <div class="wrapper" style="padding : 5 px ;">
+                    <div class="wrapper" style="padding:5px;">
                         <span class="glyphicon glyphicon-heart"></span>
                         <span id="likeCount">
                                     $likeCount
@@ -215,7 +214,7 @@
                         <span class="cm-close glyphicon glyphicon-remove pull-right"></span>
                         <div class="comments-items"></div>
                         <div class="comment-area">
-                            <textarea style="width : 100 %" class="form-control" id="commentText"></textarea>
+                            <textarea style="width: 100%" class="form-control" id="commentText"></textarea>
                             <br />
                             <button data-ideaid="$ideaId" class="comment btn btn-success btn-sm">Comment</button>
                         </div>
