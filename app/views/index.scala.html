@@ -8,6 +8,7 @@
 
         <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery-1.11.2.js")"></script>
         <script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/idea.js")"></script>
 
         <script type="text/javascript">
         var userToken ="";
@@ -21,6 +22,11 @@
                              $('#message-container').text("");
 
             };
+
+            function clearMsgs(){
+            $('#message-container').text("");
+            $('#error-container').text("");
+            }
         $(document).ready(function () {
             jQuery.ajaxSetup({ jsonp: null, jsonpCallback: null});
 
@@ -36,7 +42,9 @@
                     success: function(e,t){
                         userToken= e.token;
                         $('#sign-container').fadeOut();
-                        $('#challenge-container').fadeIn();
+                        clearMsgs();
+                        $('#idea-container').fadeIn();
+                        showIdeas(userToken);
 
 
                     },
@@ -81,12 +89,12 @@
     <body>
 
         <div class="container">
-
+            <div id="message-container" class="alert-success">
+                </div>
+            <div id="error-container" class="alert-danger">
+                </div>
             <form id="sign-container" class="form-signin">
-                <div id="message-container" class="alert-success">
-                </div>
-                <div id="error-container" class="alert-danger">
-                </div>
+
                 <h2 class="form-signin-heading">Please sign in</h2>
                 <label for="username" class="sr-only">Email address</label>
                 <input type="text" id="username" name="username" class="form-control" placeholder="User name" required
@@ -109,8 +117,65 @@
                 </div>
             </form>
 
-            <div id="challenge-container" style="display:none;">
-                    Challenges are here
+            <div id="idea-container" style="display : none ;">
+                <div id="idea-modal" class="modal fade">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Bring your IDEA to our challenge</h4>
+                            </div>
+                            <div class="modal-body">
+
+                                <form id="idea-form">
+                                    <label for="title" class="sr-only">Title</label>
+                                    <input type="text" id="title" name="name" class="form-control" placeholder="Title" required autofocus>
+                                    <label for="description" class="sr-only">Description</label>
+                                    <textarea id="description" name="description" class="form-control" placeholder="Description" required></textarea>
+                                </form>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" id="idea-save" class="btn btn-primary">Save</button>
+                            </div>
+                        </div> <!-- /.modal-content -->
+                    </div> <!-- /.modal-dialog -->
+                </div> <!-- /.modal -->
+
+                <div id="empty" class="well" style="display : none ;">
+                      There is no availble IDEA!
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#idea-modal">Be the first</button>
+                </div>
+                <div id="idea-template" style="display: none;">
+                            <div class="col-md-3 col-md-offset-1" style="background-color : $color">
+                                <div>
+                                    <h4><span class="glyphicon glyphicon-flash"></span> $name</h4>
+                                    $description
+                                    <br />
+                                    $state
+                                    <div class="wrapper">
+                                       <span class="glyphicon glyphicon-heart"></span>
+                                        $likeCount
+                                        <button class="btn btn-"
+                                    </div>
+                                </div>
+
+                            </div>
+                    </div>
+                    @*<div class="col-xs-3">*@
+                        @*<div class="glyphicon glyphicon-flash"></div>*@
+                        @*<div>$name</div>*@
+                        @*<div>$description</div>*@
+                        @*<div style="background-color : $color">$state</div>*@
+                    @*</div>*@
+                </div>
+                <div id="ideas">
+                    <h3 class="well">Current IDEAS</h3>
+
+                    <div class="row"></div>
+                </div>
+
             </div>
 
         </div>
