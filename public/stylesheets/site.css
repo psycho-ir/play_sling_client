@@ -44,3 +44,14 @@ body {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+
+.comments {
+    border: 2px solid #bbdb00;
+    margin: 5px;
+    padding: 5px;
+
+}
+
+.cm-close {
+    cursor: pointer;
+}

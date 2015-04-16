@@ -147,38 +147,40 @@
                       There is no availble IDEA!
                     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#idea-modal">Be the first</button>
                 </div>
-                <div id="idea-template" style="display: none;">
-                            <div class="col-md-3 col-md-offset-1" style="background-color : $color">
-                                <div>
-                                    <h4><span class="glyphicon glyphicon-flash"></span> $name</h4>
-                                    $description
-                                    <br />
-                                    $state
-                                    <div class="wrapper">
-                                       <span class="glyphicon glyphicon-heart"></span>
-                                        $likeCount
-                                        <button class="btn btn-"
-                                    </div>
-                                </div>
-
+                <div id="idea-template" style="display : none ;">
+                    <div id="idea-$ideaId" class="col-md-3 col-md-offset-1" style="background-color:$color; margin-bottom: 5px;">
+                            <h4><span class="glyphicon glyphicon-flash"></span> $name</h4>
+                            $description
+                            <br />
+                            $state
+                            <div class="wrapper" style="padding:5px ;">
+                                <span class="glyphicon glyphicon-heart"></span>
+                                $likeCount
+                                <button class="btn btn-success btn-sm">I like it</button>
+                                <button data-ideaId="$ideaId" class="idea-comment btn btn-success btn-sm">Show comments</button>
+                                <button class="btn btn-success btn-sm">Comment</button>
                             </div>
-                    </div>
-                    @*<div class="col-xs-3">*@
-                        @*<div class="glyphicon glyphicon-flash"></div>*@
-                        @*<div>$name</div>*@
-                        @*<div>$description</div>*@
-                        @*<div style="background-color : $color">$state</div>*@
-                    @*</div>*@
-                </div>
-                <div id="ideas">
-                    <h3 class="well">Current IDEAS</h3>
+                            <div class="comments" style="display :none;">
+                                <span class="cm-close glyphicon glyphicon-remove pull-right"></span>
+                                <div class="comments-items"></div>
+                            </div>
 
-                    <div class="row"></div>
+                    </div>
                 </div>
 
             </div>
+            <div id="ideas" style="display : none ;">
+                <h3 class="well">
+                        Current IDEAS
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#idea-modal">Share your IDEA</button>
+                </h3>
+
+                <div class="row">
+                    </div>
+            </div>
 
         </div>
+
 
     </body>
 </html>

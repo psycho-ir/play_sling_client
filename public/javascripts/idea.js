@@ -1,4 +1,4 @@
-var colors = {'open': '#11ff11', 'close': '#990011'};
+var colors = {'open': '#17FFC4', 'close': '#990011'};
 function showIdeas(token) {
 
     $.ajax({
@@ -14,6 +14,8 @@ function showIdeas(token) {
                     return;
                 }
                 var template = $('#idea-template').html();
+                $('#ideas').fadeIn();
+                $('#ideas .row').empty();
                 for (var i in ideas) {
 
                     +ideas[i].name +
@@ -21,8 +23,40 @@ function showIdeas(token) {
                         .replace('$description', ideas[i].description)
                         .replace('$state', ideas[i].state)
                         .replace('$color', colors[ideas[i].state])
-                        .replace('$likeCount',ideas[i].likeCount));
+                        .replace('$likeCount', ideas[i].likeCount)
+                        .replace('$ideaId', ideas[i].id)
+                        .replace('$ideaId', ideas[i].id));
                 }
+
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        }
+    );
+}
+
+function showComments(token, ideaId) {
+    $.ajax({
+            method: "GET",
+            url: "http://localhost:9000/api/ideas/" + ideaId + "/comments",
+            headers: {
+                "X-Auth-Token": token
+            },
+            success: function (e, t) {
+                var comments = e;
+                var cmContainer = $('#idea-' + ideaId + ' .comments');
+                cmContainer.fadeIn();
+                var itemsContainer = cmContainer.find('.comments-items');
+                itemsContainer.empty();
+                if (comments.length == 0) {
+                    itemsContainer.append('<div>No comments exist</div>');
+                    return;
+                }
+                for (var i in comments) {
+                    itemsContainer.append('<div>' + comments[i].comment + '</div>')
+                }
+
 
             },
             error: function (e) {
@@ -60,5 +94,15 @@ $(document).ready(function () {
 
         });
 
-    })
+    });
+
+    $(document).on("click", ".idea-comment", function () {
+        var ideaId = $(this).data("ideaid");
+        showComments(userToken, ideaId);
+    });
+
+    $(document).on("click", ".cm-close", function () {
+        console.log("d")
+        $(this).parent().fadeOut();
+    });
 })
