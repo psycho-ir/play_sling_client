@@ -46,14 +46,15 @@ function showAttachedFiles(token, ideaId) {
             var attachs = e;
             var attachmentContainer = $('#idea-' + ideaId + ' .attachs');
             attachmentContainer.fadeIn();
-            attachmentContainer.empty();
+            var itemsContainer = attachmentContainer.find('.attach-items');
+            itemsContainer.empty();
 
             if (attachs.length == 0) {
-                attachmentContainer.append('<div>No attachment file exist</div>');
+                itemsContainer.append('<div>No attachment file exist</div>');
                 return;
             }
             for (var i in attachs) {
-                attachmentContainer.append('<a href="#">File ' + (parseInt(i)+1) + '</a><br />');
+                itemsContainer.append('<a href="#"><span class="glyphicon glyphicon-file"></span> File ' + (parseInt(i)+1) + '</a><br />');
             }
 
 

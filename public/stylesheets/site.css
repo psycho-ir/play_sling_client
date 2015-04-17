@@ -52,8 +52,19 @@ body {
 
 }
 
+.attachs {
+    border: 1px solid #eedb55;
+    margin: 1px;
+    padding: 1px;
+}
+
 .cm-close {
+    background-color: #ff9955;
+    border-radius: 10px;
+    color: red;
     cursor: pointer;
+    font-size: 10pt;
+    padding: 5px;
 }
 
 .open-state {
