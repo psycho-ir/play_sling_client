@@ -9,6 +9,7 @@
 
         <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery-1.11.2.js")"></script>
         <script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/moment.js")"></script>
         <script type="text/javascript" src="@routes.Assets.at("javascripts/idea.js")"></script>
         <script type="text/javascript" src="@routes.Assets.at("javascripts/like.js")"></script>
         <script type="text/javascript" src="@routes.Assets.at("javascripts/comment.js")"></script>
@@ -52,9 +53,9 @@
                     success: function(e,t){
                         userToken= e.token;
                         userId = $('#username').val();
-                        $('#sign-container').fadeOut();
+                        $('#sign-container').slideToggle();
                         clearMsgs();
-                        $('#idea-container').fadeIn();
+                        $('#idea-container').slideToggle();
                         showIdeas(userToken);
 
 
@@ -233,6 +234,7 @@
             <h3 class="well">
                         Current IDEAS
                 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#idea-modal">Share your IDEA</button>
+                <span id="logout" class="glyphicon glyphicon-log-out pull-right" style="color:#13648d"></span>
             </h3>
 
             <div class="row">

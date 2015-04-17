@@ -23,7 +23,7 @@ function showComments(token, ideaId) {
                 for (var i in comments) {
                     itemsContainer.append(commentTemplate
                         .replace('$comment', comments[i].comment)
-                        .replace('$date', new Date(comments[i].createdAt).toLocaleFormat('%d-%b-%Y')))
+                        .replace('$date',moment(comments[i].createdAt).format('MMMM Do YYYY')))
                 }
 
 
