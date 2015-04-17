@@ -35,6 +35,35 @@ function showComments(token, ideaId) {
     );
 }
 
+function showAttachedFiles(token, ideaId) {
+    $.ajax({
+        method: "GET",
+        url: "http://localhost:9000/api/ideas/" + ideaId + "/files",
+        headers: {
+            "X-Auth-Token": token
+        },
+        success: function (e, t) {
+            var attachs = e;
+            var attachmentContainer = $('#idea-' + ideaId + ' .attachs');
+            attachmentContainer.fadeIn();
+            attachmentContainer.empty();
+
+            if (attachs.length == 0) {
+                attachmentContainer.append('<div>No attachment file exist</div>');
+                return;
+            }
+            for (var i in attachs) {
+                attachmentContainer.append('<a href="#">File ' + i + '</a><br />');
+            }
+
+
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    });
+}
+
 function comment(token, ideaId, comment) {
 
     $.ajax({
@@ -69,4 +98,6 @@ $(document).ready(function () {
         var commentText = $('#idea-' + ideaId + ' #commentText').val();
         comment(userToken, ideaId, commentText);
     });
+
+
 });

@@ -28,6 +28,7 @@ function showIdeas(token) {
                             .replace('$ideaId', ideas[i].id)
                             .replace('$ideaId', ideas[i].id)
                             .replace('$ideaId', ideas[i].id)
+                            .replace('$ideaId', ideas[i].id)
                     );
                 }
 
@@ -73,6 +74,11 @@ $(document).ready(function () {
         var ideaId = $(this).data("ideaid");
         showComments(userToken, ideaId);
     });
+
+    $(document).on("click",".idea-show-attach",function(){
+        var ideaId = $(this).data("ideaid");
+        showAttachedFiles(userToken,ideaId);
+    })
 
     $(document).on("click", ".cm-close", function () {
         $(this).parent().fadeOut();
