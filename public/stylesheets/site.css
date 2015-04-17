@@ -65,6 +65,6 @@ hr {
     margin-bottom: 2px;
 }
 
-#logout{
+.logout{
     cursor: pointer;
 }
