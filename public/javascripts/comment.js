@@ -53,7 +53,7 @@ function showAttachedFiles(token, ideaId) {
                 return;
             }
             for (var i in attachs) {
-                attachmentContainer.append('<a href="#">File ' + i + '</a><br />');
+                attachmentContainer.append('<a href="#">File ' + (parseInt(i)+1) + '</a><br />');
             }
 
 
